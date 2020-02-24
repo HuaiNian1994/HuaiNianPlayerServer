@@ -1,7 +1,5 @@
-var urlencode = require('urlencode');
 const http = require("http")
 const path = require("path")
-var data = "xixi";
 const fs = require("fs")
 var fileReader = (str) => {
 	return new Promise((resolve) => {
@@ -18,12 +16,17 @@ var dirReader = (str) => {
 	});
 }
 
+
 const server = http.createServer()
 const DIR="F:/media/NETEASE MUSIC"
 server.on("request", async (req, res) => {
-	let url=req.url;
-	console.log(path.join(DIR,url));
-	data=await fileReader(path.join(DIR,url))
+	let url=decodeURI(req.url)
+	console.log(url);
+	if(url=="/getMixes"){
+		var data=await fileReader("./fileTree.json")
+	}else{
+		var data=await fileReader(path.join(DIR,url))
+	}
 	res.end(data)
 })
 server.listen(3000, "192.168.43.202", () => {
