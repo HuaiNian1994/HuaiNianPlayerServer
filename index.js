@@ -17,25 +17,30 @@ var dirReader = (str) => {
 }
 
 
-const server = http.createServer()
-const DIR="F:/media/NETEASE MUSIC"
-server.on("request", async (req, res) => {
-	let url=decodeURI(req.url)
-	console.log(url);
-	if(url=="/getMixes"){
-		var data=await fileReader("./fileTree.json")
-	}else{
-		var data=await fileReader(path.join(DIR,url))
-	}
-	res.end(data)
-})
-server.listen(3000, "192.168.43.202", () => {
-	console.log("running at http://192.168.43.202:3000");
+// const server = http.createServer()
+// const DIR="F:/media/NETEASE MUSIC"
+// server.on("request", async (req, res) => {
+// 	let url=decodeURI(req.url)//decodeURI是一个JS原生对象
+// 	console.log(url);
+// 	if(url=="/getMixes"){
+// 		var data=await fileReader("./fileTree.json")
+// 	}else{
+// 		var data=await fileReader(path.join(DIR,url))
+// 	}
+// 	res.end(data)
+// })
+// server.listen(3000, "192.168.43.202", () => {
+// 	console.log("running at http://192.168.43.202:3000");
 
-})
+// })
+
+
+
+
 // (async () => {//mixes列表生成
 // 	var folders = await dirReader("F:/media/NETEASE MUSIC/")
 // 	var trackLists = []
+// 	var trackUID=0;
 // 	for (let j = 0; j < folders.length; j++) {
 // 		var arr = await dirReader("F:/media/NETEASE MUSIC/" + folders[j])
 // 		var trackList = []
@@ -56,7 +61,7 @@ server.listen(3000, "192.168.43.202", () => {
 // 			var trackSubTitle = name;
 // 			var trackTitleDisc = "";
 
-// 			var trackId = i;
+// 			var trackId = trackUID++;
 // 			var track = { trackTitle, trackSubTitle, url, trackTitleDisc, artist, trackId }
 // 			trackList.push(track)
 // 		}
